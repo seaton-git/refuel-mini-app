@@ -26,7 +26,7 @@ export default class Index extends Component {
     records: []
   }
 
-  async componentDidMount() {
+  async componentDidShow() {
     const { id = '' } = this.props.user
 
     if (id) {
@@ -50,6 +50,10 @@ export default class Index extends Component {
       this.setState(
         {
           cars: data.list || []
+        },
+        () => {
+          const { car } = this.props
+          car.id && this.getRecordList()
         }
       )
     })

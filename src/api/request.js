@@ -1,5 +1,5 @@
 import Taro from '@tarojs/taro'
-import { getToken } from '@/utils/auth'
+import { getToken, clearUser } from '@/utils/auth'
 import config from '@/config'
 import util from '@/utils'
 
@@ -36,12 +36,10 @@ const request = async function(method, url, data, header) {
       return res
     }
 
-    // if (res.statusCode === 401) {
-    //   Taro.redirectTo({
-    //     url: '/pages/login/index'
-    //   })
-    //   return
-    // }
+    // 鉴权失败，清除本地已存在用户信息
+    if (res.statusCode === 401) {
+      clearUser()
+    }
 
     return Promise.reject({ code: res.statusCode, message: util.getWithNil(res.data, 'message', '请求服务端异常') })
   }).catch(e => {

@@ -35,6 +35,11 @@ export const setUserInfo = async function(data = {}) {
   return await Taro.setStorage({ key: userInfo, data })
 }
 
+export const clearUser = async function() {
+  await Taro.removeStorageSync(token)
+  await Taro.removeStorageSync(userInfo)
+}
+
 export const getLastCarIndex = function () {
   return Taro.getStorageSync(lastCarIndex)
 }

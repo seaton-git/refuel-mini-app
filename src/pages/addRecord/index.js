@@ -36,8 +36,8 @@ export default class AddRecord extends Component {
       mileage: Number(mileage) || 0
     }).then(({ code, message }) => {
       if (code === 0) {
-        Taro.switchTab({
-          url: '/pages/home/index'
+        Taro.navigateBack({
+          delta: 1
         })
         return
       }

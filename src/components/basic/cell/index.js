@@ -12,9 +12,7 @@ export default class Cell extends Component {
     direction: 'right'
   }
 
-  onHandleCellClick() {
-    console.log('click')
-  }
+  onHandleCellClick() {}
 
   render() {
     return (
