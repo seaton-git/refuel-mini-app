@@ -1,7 +1,7 @@
 'use strict'
 
 const config = {
-  projectName: 'refuel-mini-app',
+  projectName: 'invitation-mini-app',
   date: '2019-5-5',
   designWidth: 750,
   deviceRatio: {

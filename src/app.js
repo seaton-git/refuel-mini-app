@@ -1,14 +1,9 @@
 import '@tarojs/async-await'
 import Taro, { Component } from '@tarojs/taro'
-import { Provider, connect } from '@tarojs/redux'
 import interaction from '@/plugins/interaction'
 import config from '@/config'
 import 'taro-ui/dist/style/index.scss'
-import { update } from '@/actions/user'
-import { getUserInfo } from '@/utils/auth'
-import Index from './pages/index'
-
-import configStore from './store'
+import Home from './pages/home'
 
 // common style
 import './app.less'
@@ -19,15 +14,6 @@ import './app.less'
 //   require('nerv-devtools')
 // }
 
-const store = configStore()
-
-@connect(() => ({}),
-  dispatch => ({
-    dispatchUpdateUser(data) {
-      dispatch(update(data))
-    }
-  })
-)
 class App extends Component {
   async componentDidMount() {
     // 挂载全局方法
@@ -36,10 +22,6 @@ class App extends Component {
     Taro.config = config
 
     this.checkUpdate()
-
-    // 全局注入当前用户信息
-    const user = await getUserInfo()
-    this.props.dispatchUpdateUser(user)
   }
 
   // 小程序版本更新
@@ -74,38 +56,13 @@ class App extends Component {
 
   config = {
     pages: [
-      'pages/home/index',
-      'pages/my/index',
-      'pages/login/index',
-      'pages/addCar/index',
-      'pages/addRecord/index',
-      'pages/cars/index',
-      'pages/records/index'
+      'pages/home/index'
     ],
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',
-      navigationBarTitleText: 'Car',
+      navigationBarTitleText: '邀请函',
       navigationBarTextStyle: 'black'
-    },
-    tabBar: {
-      color: '#BFCBD9',
-      selectedColor: '#13227a',
-      backgroundColor: '#ffffff',
-      list: [
-        {
-          pagePath: 'pages/home/index',
-          text: '首页',
-          iconPath: './assets/img/tab/index.png',
-          selectedIconPath: './assets/img/tab/index_select.png'
-        },
-        {
-          pagePath: 'pages/my/index',
-          text: '我',
-          iconPath: './assets/img/tab/my.png',
-          selectedIconPath: './assets/img/tab/my_select.png'
-        }
-      ]
     },
     networkTimeout: {
       request: 4000
@@ -116,9 +73,7 @@ class App extends Component {
   // 请勿修改此函数
   render() {
     return (
-      <Provider store={ store }>
-        <Index />
-      </Provider>
+      <Home />
     )
   }
 }
